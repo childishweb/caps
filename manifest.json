@@ -1,0 +1,41 @@
+{
+  "manifest_version": 2,
+  "name": "AI Focus Agent",
+  "version": "1.0.0",
+  "description": "An AI-powered browser extension that helps you stay focused by detecting when you get distracted and gently guiding you back on track.",
+
+  "icons": {
+    "48": "icons/icon-48.png",
+    "96": "icons/icon-96.png"
+  },
+
+  "permissions": [
+    "tabs",
+    "webNavigation",
+    "notifications",
+    "storage",
+    "alarms",
+    "<all_urls>"
+  ],
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+
+  "browser_action": {
+    "default_icon": "icons/icon-48.png",
+    "default_title": "AI Focus Agent",
+    "default_popup": "popup/popup.html"
+  },
+
+  "options_ui": {
+    "page": "options/options.html"
+  },
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "ai-focus-agent@example.com",
+      "strict_min_version": "57.0"
+    }
+  }
+}

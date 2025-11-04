@@ -1,0 +1,261 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: #f7fafc;
+  color: #2d3748;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  min-height: 100vh;
+}
+
+header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 40px 30px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 32px;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+header p {
+  font-size: 16px;
+  opacity: 0.95;
+}
+
+main {
+  padding: 30px;
+}
+
+.settings-section {
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.settings-section:last-of-type {
+  border-bottom: none;
+}
+
+.settings-section h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 8px;
+}
+
+.section-desc {
+  color: #718096;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.setting-item {
+  margin-bottom: 25px;
+}
+
+.setting-item label {
+  display: block;
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.setting-item input[type="number"],
+.setting-item input[type="text"] {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 14px;
+  border: 2px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: border-color 0.2s;
+}
+
+.setting-item input[type="number"]:focus,
+.setting-item input[type="text"]:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.setting-item input[type="checkbox"] {
+  margin-right: 10px;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.help-text {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #a0aec0;
+  line-height: 1.4;
+}
+
+.keyword-input {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.keyword-input input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 2px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.keyword-input input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.btn-add {
+  padding: 10px 20px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.btn-add:hover {
+  background: #5568d3;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-height: 40px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #edf2f7;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #4a5568;
+}
+
+.tag button {
+  background: none;
+  border: none;
+  color: #e53e3e;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.tag button:hover {
+  color: #c53030;
+}
+
+.about-text {
+  background: #f7fafc;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.about-text p {
+  margin-bottom: 12px;
+  color: #4a5568;
+  font-size: 14px;
+}
+
+.about-text p:last-child {
+  margin-bottom: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 2px solid #e2e8f0;
+}
+
+.btn-primary,
+.btn-secondary {
+  flex: 1;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: #667eea;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #5568d3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+  background: #edf2f7;
+  color: #4a5568;
+}
+
+.btn-secondary:hover {
+  background: #e2e8f0;
+}
+
+.save-message {
+  margin-top: 20px;
+  padding: 15px 20px;
+  background: #f0fff4;
+  border-left: 4px solid #48bb78;
+  border-radius: 6px;
+  color: #2f855a;
+  font-weight: 600;
+  text-align: center;
+  transition: opacity 0.3s;
+}
+
+.save-message.hidden {
+  display: none;
+}
+
+.empty-list {
+  color: #a0aec0;
+  font-size: 14px;
+  font-style: italic;
+  padding: 10px;
+}
