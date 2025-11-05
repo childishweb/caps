@@ -26,7 +26,6 @@ echo -e "${BLUE}→${NC} Qutebrowser config directory: ${GREEN}$QUTE_CONFIG_DIR$
 
 # Create directories if they don't exist
 mkdir -p "$QUTE_CONFIG_DIR/bypass-paywalls"
-mkdir -p "$QUTE_CONFIG_DIR/greasemonkey"
 
 echo -e "${BLUE}→${NC} Created directories"
 
