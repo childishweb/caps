@@ -22,12 +22,10 @@ echo "║     Bypass Paywalls Clean - Filter Updater         ║"
 echo "╚════════════════════════════════════════════════════╝"
 echo ""
 
-# Filter sources
+# Filter sources (using GitFlic.ru mirror due to GitLab access restrictions)
 declare -A FILTERS=(
-    ["bpc-paywall-filter"]="https://gitlab.com/magnolia1234/bypass-paywalls-clean-filters/-/raw/main/bpc-paywall-filter.txt"
-    # Note: Userscript disabled due to GitLab 403 errors. The main filter is sufficient for most cases.
-    # You can manually download from: https://gitlab.com/magnolia1234/bypass-paywalls-clean-filters
-    # ["bpc-script-filter"]="https://gitlab.com/magnolia1234/bypass-paywalls-clean-filters/-/raw/main/userscript/bpc.en.user.js"
+    ["bpc-paywall-filter"]="https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean-filters/blob/raw?file=bpc-paywall-filter.txt"
+    ["bpc-script-filter"]="https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean-filters/blob/raw?file=userscript/bpc.en.user.js"
 )
 
 # Download each filter
