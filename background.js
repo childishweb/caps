@@ -213,6 +213,49 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   return true; // Keep message channel open for async response
 });
 
+// Handle keyboard shortcuts
+browser.commands.onCommand.addListener((command) => {
+  if (command === 'toggle-focus-mode') {
+    isInFocusMode = !isInFocusMode;
+
+    const message = isInFocusMode
+      ? 'Focus Mode ACTIVATED! 🎯 Stay on track!'
+      : 'Focus Mode deactivated. Take a break if you need one.';
+
+    browser.notifications.create({
+      type: 'basic',
+      iconUrl: 'icons/icon-96.png',
+      title: 'AI Focus Agent',
+      message: message
+    });
+
+    // Update badge color based on mode
+    if (isInFocusMode) {
+      browser.browserAction.setBadgeBackgroundColor({ color: '#48BB78' });
+      browser.browserAction.setBadgeText({ text: 'ON' });
+    } else {
+      browser.browserAction.setBadgeText({ text: warningCount > 0 ? warningCount.toString() : '' });
+      browser.browserAction.setBadgeBackgroundColor({ color: '#FF6B6B' });
+    }
+  } else if (command === 'reset-session') {
+    // Reset session stats
+    siteVisits = {};
+    warningCount = 0;
+    consecutiveDistractions = 0;
+    sessionStartTime = Date.now();
+    browser.browserAction.setBadgeText({ text: '' });
+
+    browser.notifications.create({
+      type: 'basic',
+      iconUrl: 'icons/icon-96.png',
+      title: 'Session Reset',
+      message: 'Your focus session has been reset. Fresh start! 🚀'
+    });
+  } else if (command === 'open-popup') {
+    browser.browserAction.openPopup();
+  }
+});
+
 // Initialize on startup
 browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
   if (tabs[0]) {

@@ -1,0 +1,28 @@
+# Node modules
+node_modules/
+
+# Web-ext build artifacts
+web-ext-artifacts/
+*.zip
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test files
+test/
+*.test.js
+
+# Development
+.env
+*.log
+
+# Temporary files
+tmp/
+temp/

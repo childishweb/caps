@@ -9,6 +9,8 @@ An intelligent Firefox browser extension that monitors your browsing activity an
 - **Customizable Focus Domains**: Define your work/study sites to stay on track
 - **Productive & Distracting Patterns**: Configure keywords and URL patterns to categorize sites
 - **Session Tracking**: Track your focus time, distractions, and current site category
+- **Keyboard Shortcuts**: Quick access to focus mode, session reset, and popup with hotkeys
+- **Focus Mode**: Toggle an active focus mode that helps you stay extra disciplined
 - **Flexible Settings**: Customize alert thresholds, notification preferences, and more
 - **Beautiful UI**: Clean, modern interface with gradient design
 
@@ -83,6 +85,16 @@ Click "Settings" in the popup to access detailed configuration:
 - **Productive Keywords**: Add keywords that indicate productive sites (e.g., "documentation", "tutorial", "learning")
 - **Distracting Patterns**: Add URL patterns or domains that are distracting (e.g., "youtube.com/watch", "reddit.com")
 - **Focus Domains**: Add your primary work/study domains
+
+### Keyboard Shortcuts
+
+Use these keyboard shortcuts for quick access to features:
+
+- **`Ctrl+Shift+F`** - Toggle Focus Mode on/off
+- **`Ctrl+Shift+R`** - Reset current focus session
+- **`Ctrl+Shift+P`** - Open the extension popup
+
+You can customize these shortcuts in Firefox by going to `about:addons` → clicking the gear icon → selecting "Manage Extension Shortcuts".
 
 ### Understanding the Popup
 

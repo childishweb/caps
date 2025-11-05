@@ -32,6 +32,27 @@
     "page": "options/options.html"
   },
 
+  "commands": {
+    "toggle-focus-mode": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+F"
+      },
+      "description": "Toggle focus mode on/off"
+    },
+    "reset-session": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+R"
+      },
+      "description": "Reset current focus session"
+    },
+    "open-popup": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+P"
+      },
+      "description": "Open AI Focus Agent popup"
+    }
+  },
+
   "browser_specific_settings": {
     "gecko": {
       "id": "ai-focus-agent@example.com",
