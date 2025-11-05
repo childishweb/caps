@@ -1,0 +1,67 @@
+# Bypass Paywalls Clean Configuration for Qutebrowser
+# Add this to your ~/.config/qutebrowser/config.py
+
+import os
+from pathlib import Path
+
+# Get config directory
+config_dir = Path(config.configdir)
+bypass_paywall_dir = config_dir / "bypass-paywalls"
+
+# Enable content blocking
+c.content.blocking.enabled = True
+
+# Set blocking method (best compatibility)
+c.content.blocking.method = "both"
+
+# Add Bypass Paywalls Clean filters
+bypass_filter_path = bypass_paywall_dir / "bpc-paywall-filter.txt"
+if bypass_filter_path.exists():
+    config.set('content.blocking.adblock.lists', [
+        # Default lists
+        "https://easylist.to/easylist/easylist.txt",
+        "https://easylist.to/easylist/easyprivacy.txt",
+        # Bypass Paywalls Clean filter (local)
+        str(bypass_filter_path.as_uri()),
+    ])
+    print(f"✓ Loaded Bypass Paywalls Clean filters from {bypass_filter_path}")
+else:
+    print(f"⚠ Bypass Paywalls Clean filters not found at {bypass_filter_path}")
+    print("  Run: ~/.config/qutebrowser/bypass-paywalls/update-filters.sh")
+
+# Enable Greasemonkey script support
+c.content.javascript.enabled = True
+c.greasemonkey.enabled = True
+
+# Optional: Configure user agent to avoid some paywalls
+# Uncomment if needed:
+# c.content.headers.user_agent = (
+#     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+#     "AppleWebKit/537.36 (KHTML, like Gecko) "
+#     "Chrome/120.0.0.0 Safari/537.36"
+# )
+
+# Optional: Clear cookies on shutdown for paywall sites
+# This helps bypass some cookie-based paywalls
+# c.content.cookies.store = False  # Uncomment for strict mode
+
+# Optional: Disable referrer for better privacy and paywall bypass
+# c.content.headers.referer = "never"  # Uncomment if needed
+
+# Additional recommended settings for paywall bypass
+c.content.blocking.whitelist = []  # Add any sites you want to support here
+
+# Auto-reload filters on startup
+config.bind('<Ctrl-Shift-r>', 'adblock-update')
+
+print("═" * 60)
+print("  Bypass Paywalls Clean for Qutebrowser - Loaded")
+print("═" * 60)
+print("")
+print("  Commands:")
+print("    :adblock-update        - Reload adblock filters")
+print("    Ctrl+Shift+R          - Quick reload filters")
+print("")
+print("  Update filters:")
+print(f"    {bypass_paywall_dir}/update-filters.sh")
+print("")
