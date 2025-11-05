@@ -25,7 +25,7 @@ echo ""
 # Filter sources
 declare -A FILTERS=(
     ["bpc-paywall-filter"]="https://gitlab.com/magnolia1234/bypass-paywalls-clean-filters/-/raw/main/bpc-paywall-filter.txt"
-    ["bpc-script-filter"]="https://gitlab.com/magnolia1234/bypass-paywalls-clean-filters/-/raw/main/userscript.js"
+    ["bpc-script-filter"]="https://gitlab.com/magnolia1234/bypass-paywalls-clean-filters/-/raw/main/userscript/bpc.en.user.js"
 )
 
 # Download each filter
