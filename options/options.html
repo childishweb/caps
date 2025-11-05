@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AI Focus Agent - Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🎯 AI Focus Agent Settings</h1>
+      <p>Customize your focus assistant</p>
+    </header>
+
+    <main>
+      <section class="settings-section">
+        <h2>Focus Configuration</h2>
+        <div class="setting-item">
+          <label for="distractionThreshold">Distraction Alert Threshold (seconds)</label>
+          <input
+            type="number"
+            id="distractionThreshold"
+            min="10"
+            max="600"
+            step="10"
+          >
+          <p class="help-text">
+            How long you can stay on a distracting site before getting an alert
+          </p>
+        </div>
+
+        <div class="setting-item">
+          <label for="focusSessionMinutes">Focus Session Duration (minutes)</label>
+          <input
+            type="number"
+            id="focusSessionMinutes"
+            min="5"
+            max="120"
+            step="5"
+          >
+          <p class="help-text">
+            Suggested focus session length (Pomodoro-style)
+          </p>
+        </div>
+
+        <div class="setting-item">
+          <label>
+            <input type="checkbox" id="enableNotifications">
+            Enable Distraction Notifications
+          </label>
+          <p class="help-text">
+            Show browser notifications when you get distracted
+          </p>
+        </div>
+
+        <div class="setting-item">
+          <label>
+            <input type="checkbox" id="strictMode">
+            Strict Mode (Coming Soon)
+          </label>
+          <p class="help-text">
+            Automatically close distracting tabs after threshold
+          </p>
+        </div>
+      </section>
+
+      <section class="settings-section">
+        <h2>Productive Keywords</h2>
+        <p class="section-desc">
+          Sites containing these keywords will be marked as productive
+        </p>
+        <div class="keyword-input">
+          <input
+            type="text"
+            id="productiveKeyword"
+            placeholder="e.g., documentation, tutorial, learning"
+          >
+          <button id="addProductiveKeyword" class="btn-add">Add Keyword</button>
+        </div>
+        <div id="productiveKeywordsList" class="tag-list"></div>
+      </section>
+
+      <section class="settings-section">
+        <h2>Distracting Patterns</h2>
+        <p class="section-desc">
+          Sites matching these patterns will be flagged as distractions
+        </p>
+        <div class="keyword-input">
+          <input
+            type="text"
+            id="distractingPattern"
+            placeholder="e.g., youtube.com/watch, reddit.com"
+          >
+          <button id="addDistractingPattern" class="btn-add">Add Pattern</button>
+        </div>
+        <div id="distractingPatternsList" class="tag-list"></div>
+      </section>
+
+      <section class="settings-section">
+        <h2>Focus Domains</h2>
+        <p class="section-desc">
+          Your primary work/study sites that you should be focusing on
+        </p>
+        <div class="keyword-input">
+          <input
+            type="text"
+            id="focusDomain"
+            placeholder="e.g., github.com, docs.python.org"
+          >
+          <button id="addFocusDomain" class="btn-add">Add Domain</button>
+        </div>
+        <div id="focusDomainsList" class="tag-list"></div>
+      </section>
+
+      <section class="settings-section">
+        <h2>About AI Focus Agent</h2>
+        <div class="about-text">
+          <p>
+            <strong>Version:</strong> 1.0.0
+          </p>
+          <p>
+            AI Focus Agent helps you maintain focus by monitoring your browsing habits
+            and gently nudging you back on track when you get distracted.
+          </p>
+          <p>
+            The extension uses pattern matching and time tracking to detect when you're
+            drifting away from your focus goals, then sends friendly reminders to help
+            you stay productive.
+          </p>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button id="saveSettings" class="btn-primary">Save Settings</button>
+        <button id="resetDefaults" class="btn-secondary">Reset to Defaults</button>
+      </div>
+
+      <div id="saveMessage" class="save-message hidden">
+        Settings saved successfully! ✓
+      </div>
+    </main>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
