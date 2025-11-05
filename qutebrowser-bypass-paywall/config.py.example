@@ -19,18 +19,85 @@ c.content.blocking.method = "both"
 
 # Add Bypass Paywalls Clean filters
 bypass_filter_path = bypass_paywall_dir / "bpc-paywall-filter.txt"
+
+# ═══════════════════════════════════════════════════════════════
+# FILTER LISTS - Choose your level:
+# ═══════════════════════════════════════════════════════════════
+
+# ──────────────────────────────────────────────────────────────
+# OPTION 1: BALANCED (Recommended - ~150K filters)
+# Good performance, blocks paywalls + ads + trackers + cookie notices
+# ──────────────────────────────────────────────────────────────
 if bypass_filter_path.exists():
     config.set('content.blocking.adblock.lists', [
-        # Default lists
-        "https://easylist.to/easylist/easylist.txt",
-        "https://easylist.to/easylist/easyprivacy.txt",
-        # Bypass Paywalls Clean filter (local)
+        # ★ PAYWALL BYPASS (Priority #1)
         str(bypass_filter_path.as_uri()),
+
+        # ★ ADS (Essential)
+        "https://easylist.to/easylist/easylist.txt",  # ~83K filters
+
+        # ★ PRIVACY & TRACKING (Essential)
+        "https://easylist.to/easylist/easyprivacy.txt",  # ~27K filters
+        "https://secure.fanboy.co.nz/enhancedstats.txt",  # Fanboy's Enhanced Tracking (recommended with BPC)
+
+        # ★ COOKIE NOTICES (Highly recommended for news sites)
+        "https://secure.fanboy.co.nz/fanboy-cookiemonster.txt",  # ~35K filters
+
+        # ★ ANNOYANCES (Recommended - removes popups, newsletters, etc.)
+        "https://easylist-downloads.adblockplus.org/easylist-annoyances.txt",  # ~15K filters
     ])
-    print(f"✓ Loaded Bypass Paywalls Clean filters from {bypass_filter_path}")
+    print(f"✓ Loaded Bypass Paywalls Clean filters (Balanced mode)")
 else:
     print(f"⚠ Bypass Paywalls Clean filters not found at {bypass_filter_path}")
     print("  Run: ~/.config/qutebrowser/bypass-paywalls/update-filters.sh")
+
+# ──────────────────────────────────────────────────────────────
+# OPTION 2: AGGRESSIVE (More blocking - ~300K+ filters)
+# Better blocking but may break some sites. Uncomment to use:
+# ──────────────────────────────────────────────────────────────
+# if bypass_filter_path.exists():
+#     config.set('content.blocking.adblock.lists', [
+#         # PAYWALL BYPASS
+#         str(bypass_filter_path.as_uri()),
+#
+#         # ADS
+#         "https://easylist.to/easylist/easylist.txt",
+#         "https://filters.adtidy.org/extension/chromium/filters/2.txt",  # AdGuard Base
+#
+#         # PRIVACY & TRACKING
+#         "https://easylist.to/easylist/easyprivacy.txt",
+#         "https://secure.fanboy.co.nz/enhancedstats.txt",
+#         "https://filters.adtidy.org/extension/chromium/filters/3.txt",  # AdGuard Tracking Protection
+#         "https://filters.adtidy.org/extension/chromium/filters/17.txt",  # AdGuard URL Tracking Protection
+#
+#         # COOKIE NOTICES
+#         "https://secure.fanboy.co.nz/fanboy-cookiemonster.txt",
+#         "https://filters.adtidy.org/extension/chromium/filters/18.txt",  # AdGuard Cookie Notices
+#
+#         # ANNOYANCES
+#         "https://easylist-downloads.adblockplus.org/easylist-annoyances.txt",
+#         "https://filters.adtidy.org/extension/chromium/filters/14.txt",  # AdGuard Annoyances
+#
+#         # SOCIAL WIDGETS
+#         "https://easylist.to/easylist/fanboy-social.txt",
+#
+#         # MALWARE & SECURITY (Optional)
+#         # "https://malware-filter.gitlab.io/malware-filter/urlhaus-filter-online.txt",
+#         # "https://phishing.army/download/phishing_army_blocklist_extended.txt",
+#     ])
+#     print(f"✓ Loaded Bypass Paywalls Clean filters (Aggressive mode)")
+
+# ──────────────────────────────────────────────────────────────
+# OPTION 3: MINIMAL (Fastest - ~100K filters)
+# Only paywall bypass + basic ad/tracking blocking. Uncomment to use:
+# ──────────────────────────────────────────────────────────────
+# if bypass_filter_path.exists():
+#     config.set('content.blocking.adblock.lists', [
+#         str(bypass_filter_path.as_uri()),  # Bypass Paywalls Clean
+#         "https://easylist.to/easylist/easylist.txt",  # Basic ad blocking
+#         "https://easylist.to/easylist/easyprivacy.txt",  # Basic privacy
+#     ])
+#     print(f"✓ Loaded Bypass Paywalls Clean filters (Minimal mode)")
 
 # Enable JavaScript (required for many sites)
 c.content.javascript.enabled = True

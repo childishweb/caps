@@ -13,11 +13,12 @@ A comprehensive solution to integrate **Bypass Paywalls Clean** filters into [qu
   - And hundreds more!
 - 🛡️ **Privacy-Focused**: All filters run locally, no data sent to external servers
 - ⚙️ **Fully Configurable**: Customize to your needs
-- 📜 **Greasemonkey Script Support**: Includes userscript for enhanced bypass capabilities
+- 🚀 **Adblock-Powered**: Uses qutebrowser's built-in content blocking
 
 ## 📋 Requirements
 
 - **qutebrowser** (version 2.0.0 or later)
+- **python-adblock** package (install via `sudo pacman -S python-adblock` on Arch, or `pip install adblock` on other systems)
 - **curl** or **wget** (for downloading filters)
 - Linux/macOS/BSD (Windows with WSL should work too)
 
@@ -26,9 +27,15 @@ A comprehensive solution to integrate **Bypass Paywalls Clean** filters into [qu
 ### Installation
 
 ```bash
-# Clone or download this repository
-git clone https://github.com/yourusername/qutebrowser-bypass-paywall.git
+# Clone this repository
+git clone https://github.com/childishweb/qutebrowser-bypass-paywall.git
 cd qutebrowser-bypass-paywall
+
+# Install python-adblock if not already installed
+# On Arch Linux:
+sudo pacman -S python-adblock
+# On other systems:
+# pip install --user adblock
 
 # Run the installer
 chmod +x install.sh
@@ -37,19 +44,17 @@ chmod +x install.sh
 
 The installer will:
 1. Create necessary directories in your qutebrowser config
-2. Download the latest Bypass Paywalls Clean filters
-3. Install the Greasemonkey userscript
-4. Set up configuration (or guide you to do so)
-5. Optionally configure automatic weekly updates
+2. Download the latest Bypass Paywalls Clean filters from GitFlic.ru mirror
+3. Set up configuration (or guide you to do so)
+4. Optionally configure automatic weekly updates via cron
 
 ### Manual Installation
 
 If you prefer manual installation:
 
 ```bash
-# 1. Create directories
+# 1. Create directory
 mkdir -p ~/.config/qutebrowser/bypass-paywalls
-mkdir -p ~/.config/qutebrowser/greasemonkey
 
 # 2. Copy scripts
 cp update-filters.sh ~/.config/qutebrowser/bypass-paywalls/
@@ -64,25 +69,59 @@ cat config.py.example >> ~/.config/qutebrowser/config.py
 
 ## 🔧 Configuration
 
-The installer creates or updates your `~/.config/qutebrowser/config.py` with the following:
+The installer creates or updates your `~/.config/qutebrowser/config.py`. Three configuration levels are available in `config.py.example`:
+
+### Filter List Options
+
+**🎯 OPTION 1: BALANCED (Recommended - Default)**
+- **~160K filters** - Good performance, great blocking
+- Includes:
+  - ✅ Bypass Paywalls Clean (local)
+  - ✅ EasyList (ads)
+  - ✅ EasyPrivacy (tracking)
+  - ✅ Fanboy's Enhanced Tracking (recommended with BPC)
+  - ✅ Fanboy's Cookie Monster (removes cookie notices)
+  - ✅ EasyList Annoyances (popups, newsletters)
+- **Best for:** Most users who want effective blocking without slowdowns
+
+**💪 OPTION 2: AGGRESSIVE (Power Users)**
+- **~300K+ filters** - Maximum blocking power
+- Everything from Balanced, plus:
+  - ✅ AdGuard Base + Tracking Protection + URL Tracking
+  - ✅ AdGuard Cookie Notices + Annoyances
+  - ✅ Social widgets blocking
+  - ⚠️ Optional: Malware & phishing protection
+- **Best for:** Privacy-focused users, slower but more thorough
+- **Warning:** May break some sites, requires whitelisting
+
+**⚡ OPTION 3: MINIMAL (Performance)**
+- **~100K filters** - Fastest option
+- Includes only:
+  - ✅ Bypass Paywalls Clean (priority)
+  - ✅ EasyList (basic ads)
+  - ✅ EasyPrivacy (basic tracking)
+- **Best for:** Older hardware or users who prioritize speed
+
+### Example Configuration (Balanced)
 
 ```python
-# Enable content blocking
+config.load_autoconfig()
+
+# Enable content blocking with Balanced filters
 c.content.blocking.enabled = True
 c.content.blocking.method = "both"
 
-# Add Bypass Paywalls Clean filters
 config.set('content.blocking.adblock.lists', [
+    str(bypass_filter_path.as_uri()),  # Bypass Paywalls Clean
     "https://easylist.to/easylist/easylist.txt",
     "https://easylist.to/easylist/easyprivacy.txt",
-    str(bypass_filter_path.as_uri()),  # Bypass Paywalls Clean
+    "https://secure.fanboy.co.nz/enhancedstats.txt",
+    "https://secure.fanboy.co.nz/fanboy-cookiemonster.txt",
+    "https://easylist-downloads.adblockplus.org/easylist-annoyances.txt",
 ])
-
-# Enable Greasemonkey scripts
-c.greasemonkey.enabled = True
 ```
 
-See `config.py.example` for the complete configuration with optional settings.
+See `config.py.example` for all three options with detailed comments.
 
 ## 📖 Usage
 
@@ -223,9 +262,12 @@ chmod +x ~/.config/qutebrowser/bypass-paywalls/update-filters.sh
 ## 🔄 Uninstallation
 
 ```bash
+# Run the uninstall script
+./uninstall.sh
+
+# Or manually:
 # Remove filters and scripts
 rm -rf ~/.config/qutebrowser/bypass-paywalls
-rm ~/.config/qutebrowser/greasemonkey/bypass-paywalls-clean.js
 
 # Remove configuration (edit config.py manually)
 # Remove the Bypass Paywalls Clean section from:
@@ -238,17 +280,15 @@ crontab -e
 
 ## 📚 How It Works
 
-This solution integrates Bypass Paywalls Clean into qutebrowser using two methods:
+This solution integrates Bypass Paywalls Clean into qutebrowser using content blocking:
 
-1. **Content Blocking**: Uses qutebrowser's built-in adblock functionality to load filter rules that remove paywall elements and tracking scripts.
+**Content Blocking**: Uses qutebrowser's built-in adblock functionality (powered by python-adblock/Brave's adblock engine) to load filter rules that:
+- Remove paywall elements and overlays
+- Block tracking scripts
+- Prevent article-limit counters
+- Bypass cookie-based restrictions
 
-2. **Greasemonkey Userscript**: Runs JavaScript that:
-   - Removes paywall overlays
-   - Unlocks content
-   - Clears article limits
-   - Bypasses cookie-based restrictions
-
-The filters are downloaded from the official [Bypass Paywalls Clean Filters](https://gitlab.com/magnolia1234/bypass-paywalls-clean-filters) repository, maintained by magnolia1234.
+The filters are downloaded from the [GitFlic.ru mirror](https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean-filters) of the official Bypass Paywalls Clean Filters repository, maintained by magnolia1234.
 
 ## 🔒 Privacy & Ethics
 
