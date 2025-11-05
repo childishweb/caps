@@ -75,7 +75,7 @@ else:
 #         "https://filters.adtidy.org/extension/chromium/filters/18.txt",  # AdGuard Cookie Notices
 #
 #         # ANNOYANCES
-#         "https://easylist-downloads.adblockplus.org/easylist-annoyances.txt",
+#         "https://easylist.to/easylist/fanboy-annoyance.txt",
 #         "https://filters.adtidy.org/extension/chromium/filters/14.txt",  # AdGuard Annoyances
 #
 #         # SOCIAL WIDGETS
