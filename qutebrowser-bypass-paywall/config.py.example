@@ -44,7 +44,7 @@ if bypass_filter_path.exists():
         "https://secure.fanboy.co.nz/fanboy-cookiemonster.txt",  # ~35K filters
 
         # ★ ANNOYANCES (Recommended - removes popups, newsletters, etc.)
-        "https://easylist-downloads.adblockplus.org/easylist-annoyances.txt",  # ~15K filters
+        "https://easylist.to/easylist/easylist-annoyances.txt",  # ~15K filters
     ])
     print(f"✓ Loaded Bypass Paywalls Clean filters (Balanced mode)")
 else:
