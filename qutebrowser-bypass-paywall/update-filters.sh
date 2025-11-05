@@ -25,7 +25,9 @@ echo ""
 # Filter sources
 declare -A FILTERS=(
     ["bpc-paywall-filter"]="https://gitlab.com/magnolia1234/bypass-paywalls-clean-filters/-/raw/main/bpc-paywall-filter.txt"
-    ["bpc-script-filter"]="https://gitlab.com/magnolia1234/bypass-paywalls-clean-filters/-/raw/main/userscript/bpc.en.user.js"
+    # Note: Userscript disabled due to GitLab 403 errors. The main filter is sufficient for most cases.
+    # You can manually download from: https://gitlab.com/magnolia1234/bypass-paywalls-clean-filters
+    # ["bpc-script-filter"]="https://gitlab.com/magnolia1234/bypass-paywalls-clean-filters/-/raw/main/userscript/bpc.en.user.js"
 )
 
 # Download each filter
@@ -33,17 +35,23 @@ for name in "${!FILTERS[@]}"; do
     url="${FILTERS[$name]}"
     echo "→ Downloading $name..."
 
+    # Download with error handling
+    DOWNLOAD_SUCCESS=false
     if command -v curl &> /dev/null; then
-        curl -fsSL "$url" -o "$TEMP_DIR/$name.tmp"
+        if curl -fsSL "$url" -o "$TEMP_DIR/$name.tmp" 2>/dev/null; then
+            DOWNLOAD_SUCCESS=true
+        fi
     elif command -v wget &> /dev/null; then
-        wget -q "$url" -O "$TEMP_DIR/$name.tmp"
+        if wget -q "$url" -O "$TEMP_DIR/$name.tmp" 2>/dev/null; then
+            DOWNLOAD_SUCCESS=true
+        fi
     else
         echo "✗ Error: Neither curl nor wget found. Please install one of them."
         exit 1
     fi
 
     # Verify download was successful
-    if [ -s "$TEMP_DIR/$name.tmp" ]; then
+    if [ "$DOWNLOAD_SUCCESS" = true ] && [ -s "$TEMP_DIR/$name.tmp" ]; then
         # Move temp file to final location
         if [[ "$name" == *"script"* ]]; then
             mv "$TEMP_DIR/$name.tmp" "$QUTE_CONFIG_DIR/greasemonkey/bypass-paywalls-clean.js"
@@ -53,7 +61,11 @@ for name in "${!FILTERS[@]}"; do
             echo "  ✓ Updated $name.txt"
         fi
     else
-        echo "  ✗ Failed to download $name"
+        if [[ "$name" == *"script"* ]]; then
+            echo "  ⚠ Userscript download failed (optional - can be added manually later)"
+        else
+            echo "  ✗ Failed to download $name (required)"
+        fi
         rm -f "$TEMP_DIR/$name.tmp"
     fi
 done
