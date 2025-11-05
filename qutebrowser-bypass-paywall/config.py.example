@@ -1,6 +1,9 @@
 # Bypass Paywalls Clean Configuration for Qutebrowser
 # Add this to your ~/.config/qutebrowser/config.py
 
+# Load autoconfig (load settings configured via GUI)
+config.load_autoconfig()
+
 import os
 from pathlib import Path
 
@@ -29,9 +32,8 @@ else:
     print(f"⚠ Bypass Paywalls Clean filters not found at {bypass_filter_path}")
     print("  Run: ~/.config/qutebrowser/bypass-paywalls/update-filters.sh")
 
-# Enable Greasemonkey script support
+# Enable JavaScript (required for many sites)
 c.content.javascript.enabled = True
-c.greasemonkey.enabled = True
 
 # Optional: Configure user agent to avoid some paywalls
 # Uncomment if needed:

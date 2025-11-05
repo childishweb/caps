@@ -23,9 +23,9 @@ echo "╚═══════════════════════�
 echo ""
 
 # Filter sources (using GitFlic.ru mirror due to GitLab access restrictions)
+# Note: Qutebrowser doesn't support Greasemonkey, so we only use the adblock filter
 declare -A FILTERS=(
     ["bpc-paywall-filter"]="https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean-filters/blob/raw?file=bpc-paywall-filter.txt"
-    ["bpc-script-filter"]="https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean-filters/blob/raw?file=userscript/bpc.en.user.js"
 )
 
 # Download each filter
@@ -51,19 +51,10 @@ for name in "${!FILTERS[@]}"; do
     # Verify download was successful
     if [ "$DOWNLOAD_SUCCESS" = true ] && [ -s "$TEMP_DIR/$name.tmp" ]; then
         # Move temp file to final location
-        if [[ "$name" == *"script"* ]]; then
-            mv "$TEMP_DIR/$name.tmp" "$QUTE_CONFIG_DIR/greasemonkey/bypass-paywalls-clean.js"
-            echo "  ✓ Installed userscript to greasemonkey/"
-        else
-            mv "$TEMP_DIR/$name.tmp" "$FILTER_DIR/$name.txt"
-            echo "  ✓ Updated $name.txt"
-        fi
+        mv "$TEMP_DIR/$name.tmp" "$FILTER_DIR/$name.txt"
+        echo "  ✓ Updated $name.txt"
     else
-        if [[ "$name" == *"script"* ]]; then
-            echo "  ⚠ Userscript download failed (optional - can be added manually later)"
-        else
-            echo "  ✗ Failed to download $name (required)"
-        fi
+        echo "  ✗ Failed to download $name (required)"
         rm -f "$TEMP_DIR/$name.tmp"
     fi
 done
